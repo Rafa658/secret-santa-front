@@ -14,8 +14,11 @@ code {
 }
 
 .App-header{
-  background-color: aliceblue !important;
+  background-color: snow !important;
+  display: flex !important;
 }
+
+/* AddPersonBox components */
 
 .add-person-box {
   height: 170px;
@@ -29,4 +32,21 @@ code {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+/* ShowPeople components */
+
+.person-card {
+  width: 170px;
+  background-color: #fafafa !important;
+  text-align: start !important;
+}
+
+.show-people{
+  display: flex !important;
+  margin-top: 10px;
+}
+
+.show-person + .show-person {
+  margin-left: 7px !important;
 }
