@@ -2,24 +2,26 @@ import * as React from 'react'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import axios from 'axios'
-
-const handleAdd = (name, email) => {
-  axios
-    .post('http://localhost:4000/add_person', {name: name, email: email})
-    .then(res => {
-      alert(res.data)
-    })
-    .catch(err => {
-      console.log(err.response)
-    })
-}
+import DataContext from '../Context/context';
 
 const AddPersonContainer = () => {
   const [name, setName] = React.useState('')
   const [email, setEmail] = React.useState('')
+  const {setCall} = React.useContext(DataContext)
 
   const handleNameChange = event => setName(event.target.value)
   const handleEmailChange = event => setEmail(event.target.value)
+  const handleAdd = (name, email) => {
+    axios
+      .post('http://localhost:4000/add_person', {name: name, email: email})
+      .then(res => {
+        alert(res.data)
+        setCall(c => !c)
+      })
+      .catch(err => {
+        console.log(err.response)
+      })
+  }
 
   return (
     <>

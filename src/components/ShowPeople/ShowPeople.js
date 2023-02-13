@@ -8,49 +8,52 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import axios from 'axios'
-
-const handleDelete = (name) => {
-    axios
-        .delete('http://localhost:4000/delete_person', {data: {name: name}})
-        .then((res) => {
-            alert(res.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-}
-
-const card = (person) => {
-    return (
-        <div
-            className='person-card'
-        >
-            <CardContent>
-                <Typography
-                    variant='h5'
-                    component='div'
-                >
-                    {person.name}
-                </Typography>
-                <Typography
-                    sx={{ mb: 1.5 }}
-                    color="text.secondary"
-                >
-                    {person.email}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button
-                    size='small'
-                    onClick={() => handleDelete(person.name)}
-                >Remover</Button>
-            </CardActions>
-        </div>
-    )
-}
+import DataContext from '../Context/context';
 
 export default function People() {
     const [people, setPeople] = React.useState([])
+    const {call, setCall} = React.useContext(DataContext)
+
+    const card = (person) => {
+        return (
+            <div
+                className='person-card'
+            >
+                <CardContent>
+                    <Typography
+                        variant='h5'
+                        component='div'
+                    >
+                        {person.name}
+                    </Typography>
+                    <Typography
+                        sx={{ mb: 1.5 }}
+                        color="text.secondary"
+                    >
+                        {person.email}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Button
+                        size='small'
+                        onClick={() => handleDelete(person.name)}
+                    >Remover</Button>
+                </CardActions>
+            </div>
+        )
+    }
+
+    const handleDelete = (name) => {
+        axios
+            .delete('http://localhost:4000/delete_person', { data: { name: name } })
+            .then((res) => {
+                alert(res.data)
+                setCall(c => !c)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     React.useEffect(() => {
         axios
@@ -61,11 +64,11 @@ export default function People() {
             .catch(err => {
                 console.log(err)
             })
-    }, [people])
+    }, [call])
 
     return (
         <Box
-            className = 'show-people'
+            className='show-people'
         >
             {people.map((person, index) => {
                 return (
