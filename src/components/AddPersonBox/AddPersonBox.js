@@ -7,7 +7,7 @@ const handleAdd = (name, email) => {
   axios
     .post('http://localhost:4000/add_person', {name: name, email: email})
     .then(res => {
-      console.log(res.data)
+      alert(res.data)
     })
     .catch(err => {
       console.log(err.response)
