@@ -50,3 +50,9 @@ code {
 .show-person + .show-person {
   margin-left: 7px !important;
 }
+
+/* GenerateDraw components */
+
+.draw-button {
+  margin-bottom: 10px !important;
+}
